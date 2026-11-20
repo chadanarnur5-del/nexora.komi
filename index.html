@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NEXORA — Shaping Digital Realities</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#04030a;
+  --ink:#f4f2fb;
+  --mute:#a9a8bd;
+  --line:rgba(255,255,255,.35);
+  --glass:rgba(130,120,255,.07);
+  --serif:'Cormorant Garamond','Cormorant',Georgia,serif;
+  --sans:'Inter','Helvetica Neue',Arial,sans-serif;
+  color-scheme:dark;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg)}
+*,*::before,*::after{box-sizing:inherit;margin:0}
+body{background:var(--bg);color:var(--ink);font:300 15px/1.65 var(--sans);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:60}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:1px solid #9db0ff;outline-offset:4px}
+.u{font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+
+/* Header & Navigation */
+header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top,0px) + 24px) 34px 18px;transition:.4s}
+header.bg{background:rgba(4,3,10,.78);backdrop-filter:blur(14px)}
+.logo{display:flex;align-items:center;gap:12px;font-size:13px;letter-spacing:.28em;font-weight:400}
+#menu{display:flex;gap:52px}
+#menu a{position:relative;padding-bottom:12px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+#menu a small{color:var(--mute);margin-left:10px;font-size:9px;letter-spacing:.1em}
+#menu a::after{content:"";position:absolute;left:50%;bottom:0;width:3px;height:3px;border-radius:50%;background:#fff;transform:translateX(-50%)}
+.pill{border:1px solid rgba(255,255,255,.55);border-radius:999px;padding:9px 20px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;transition:background .3s,border-color .3s}
+.pill:hover{background:rgba(255,255,255,.1);border-color:#fff}
+#bt{display:none;background:none;border:0;color:inherit;font:inherit;cursor:pointer}
+
+/* Hero Section (Дизайн из 2-го кода) */
+.hero{
+  position:relative;
+  min-height:100svh;
+  overflow:hidden;
+  background:
+   radial-gradient(60% 55% at 62% 48%,rgba(70,50,170,.34),transparent 70%),
+   radial-gradient(40% 50% at 88% 12%,rgba(60,70,190,.28),transparent 70%),
+   linear-gradient(180deg,#050410,#04030a 60%,#07051a);
+}
+.beam{
+  position:absolute;top:-10%;right:2%;width:46%;height:90%;
+  background:linear-gradient(200deg,rgba(130,140,255,.34),rgba(90,80,220,.12) 45%,transparent 75%);
+  clip-path:polygon(55% 0,100% 0,100% 70%,0 100%);filter:blur(26px);opacity:.8;pointer-events:none;
+}
+.stage{position:absolute;inset:0;pointer-events:none}
+.stage svg{width:100%;height:100%;display:block}
+#dust{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.vignette{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(120% 100% at 60% 50%,transparent 55%,rgba(2,1,8,.75));
+}
+
+/* Анимации кристаллов */
+.float{animation:fl 9s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.f2{animation-duration:12s;animation-delay:-3s}
+.f3{animation-duration:7s;animation-delay:-5s}
+.f4{animation-duration:14s;animation-delay:-8s}
+@keyframes fl{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-14px) rotate(.8deg)}}
+.glint{animation:gl 5s ease-in-out infinite}
+@keyframes gl{0%,100%{opacity:.55}50%{opacity:1}}
+
+/* Hero Copy & Intro */
+.copy{position:absolute;left:8.4%;top:32.5%;z-index:4;max-width:min(520px,80%)}
+h1,h2{font-family:var(--serif);font-weight:400;line-height:1.08}
+h1{font-size:clamp(2.6rem,4.45vw,4.6rem);letter-spacing:-.005em}
+.copy p{margin:34px 0 0;font-size:clamp(12.5px,1.07vw,14.5px);font-weight:300;line-height:1.65;color:var(--mute)}
+.cta{display:inline-flex;align-items:center;gap:22px;margin-top:48px;font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+.cta svg{width:30px;height:7px;transition:transform .4s}
+.cta:hover svg{transform:translateX(8px)}
+.intro>*{opacity:0;transform:translateY(14px);animation:in 1.1s cubic-bezier(.2,.7,.2,1) forwards}
+.intro>*:nth-child(2){animation-delay:.25s}.intro>*:nth-child(3){animation-delay:.5s}
+@keyframes in{to{opacity:1;transform:none}}
+
+/* Right Scroll Rail */
+.rail{position:fixed;right:30px;top:33%;z-index:40;display:flex;flex-direction:column;align-items:center;gap:16px;font-size:9px;letter-spacing:.25em;text-align:center}
+.rail span{writing-mode:vertical-rl;color:var(--mute)}
+.rail b{width:1px;height:160px;background:rgba(255,255,255,.45);position:relative}
+.rail b::before,.rail b::after{content:"";position:absolute;left:-5px;width:11px;height:11px;border:1px solid rgba(255,255,255,.55);border-radius:50%;background:var(--bg)}
+.rail b::before{top:42px}.rail b::after{top:128px}
+
+/* Hero Footer Bar */
+.foot{position:absolute;left:24px;right:46px;bottom:24px;z-index:4;display:flex;align-items:center;gap:22px;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase}
+.foot hr{flex:1;border:0;height:1px;background:rgba(255,255,255,.45)}
+.foot hr:first-of-type{flex:0 0 10%}
+#snd{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.55);background:none;color:#fff;display:grid;place-items:center;cursor:pointer;transition:.3s}
+#snd.on{box-shadow:0 0 16px #7a6bff;background:rgba(255,255,255,.12)}
+
+/* Остальные секции из 1-го кода */
+.sec{padding:130px 8vw;position:relative;opacity:0;transform:translateY(28px);transition:1s}
+.sec.in{opacity:1;transform:none}
+.sec h2{font-size:clamp(34px,4vw,60px);margin:14px 0 48px}
+.tag{color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px}
+.card{background:var(--glass);border:1px solid rgba(190,190,255,.14);border-radius:18px;padding:22px;backdrop-filter:blur(10px);transition:.4s}
+.card:hover{border-color:rgba(160,150,255,.5);transform:translateY(-4px)}
+.vis{position:relative;aspect-ratio:4/3;border-radius:12px;margin-bottom:20px;overflow:hidden;background:radial-gradient(70% 70% at 50% 40%,rgba(80,60,200,.35),#06050f)}
+.vis::after{content:"";position:absolute;inset:20% 30%;background:linear-gradient(135deg,var(--a),var(--b));clip-path:polygon(50% 0,100% 40%,70% 100%,10% 70%);filter:drop-shadow(0 0 22px var(--a))}
+.card h3{font:400 26px var(--serif);margin:6px 0}
+.card p,.about p{color:var(--mute)}
+.badge{display:inline-block;border:1px solid var(--line);border-radius:20px;padding:2px 12px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#bfb6ff}
+.about{display:grid;grid-template-columns:1.3fr 1fr;gap:60px}
+.about .big{font:400 clamp(24px,2.6vw,38px)/1.35 var(--serif);color:var(--ink)}
+.pr{font:400 46px var(--serif);margin:14px 0 0}
+.pr small{display:block;font:300 13px var(--sans);color:var(--mute);margin-top:-4px}
+.card button{margin-top:22px;width:100%;background:none;color:inherit;font:inherit;cursor:pointer}
+.add{margin-top:30px;color:var(--mute);font-size:13px}
+.globe{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+#gcv{width:100%;max-width:520px;aspect-ratio:1;justify-self:center}
+form{display:grid;gap:14px;max-width:620px}
+input,select,textarea{width:100%;background:var(--glass);border:1px solid rgba(190,190,255,.2);border-radius:12px;padding:15px 18px;color:var(--ink);font:inherit;outline:0}
+input:focus,select:focus,textarea:focus{border-color:#8f7bff}
+select option{background:#0b0a1c}
+form button{cursor:pointer;justify-self:start;background:linear-gradient(120deg,#5a4bff,#8a52e8);border:0;color:#fff}
+#ok{color:#bfb6ff}
+footer{padding:40px 8vw;color:var(--mute);font-size:12px;border-top:1px solid rgba(190,190,255,.1)}
+
+@media(max-width:860px){
+  header{padding-left:20px;padding-right:20px}
+  #bt{display:block}
+  .pill{display:none}
+  #menu{display:none;position:fixed;inset:0;background:rgba(4,3,10,.96);flex-direction:column;justify-content:center;align-items:center;gap:30px}
+  .m #menu{display:flex}
+  #menu a{font-size:15px}
+  .stage{inset:0 0 auto 0;height:62%}
+  .copy{left:24px;right:24px;top:auto;bottom:14%;max-width:none}
+  h1{font-size:clamp(2.4rem,10.5vw,3.4rem)}
+  .copy p{margin-top:20px;font-size:13px}
+  .cta{margin-top:28px}
+  .rail{display:none}
+  .foot{left:20px;right:20px;gap:12px;font-size:8px;letter-spacing:.14em}
+  .foot hr:first-of-type{display:none}
+  .about,.globe{grid-template-columns:1fr}
+  .sec{padding:90px 22px}
+  form button.pill{display:block}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+
+<header id="nav">
+  <a class="logo" href="#home" aria-label="NEXORA home">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#fff" stroke-width="1.4">
+      <rect x="1" y="1" width="16" height="16"/>
+      <path d="M5 13V5l8 8V5" stroke-linejoin="round"/>
+    </svg>NEXORA
+  </a>
+  <nav id="menu" aria-label="Main">
+    <a href="#work">Work<small>—02</small></a>
+    <a href="#about">About<small>—03</small></a>
+    <a href="#services">Services<small>—04</small></a>
+    <a href="#globe">Global<small>—05</small></a>
+    <a href="#start">Start a project<small>—06</small></a>
+  </nav>
+  <a class="pill" href="#start">Contact us</a>
+  <button id="bt" class="u" onclick="document.body.classList.toggle('m')">Menu</button>
+</header>
+
+<div class="rail" aria-hidden="true">
+  <span>SCROLL</span>
+  <b></b>
+  <em id="cn" style="font-style:normal">01<br>06</em>
+</div>
+
+<!-- HERO SECTION (Визуал и кристаллы из 2-го кода) -->
+<section id="home" class="hero">
+  <div class="beam"></div>
+  <div class="stage">
+    <svg viewBox="0 0 1290 860" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="gA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8d9bff"/><stop offset=".45" stop-color="#6247f0"/><stop offset="1" stop-color="#26217a"/></linearGradient>
+        <linearGradient id="gB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0a98a"/><stop offset=".5" stop-color="#a26bd8"/><stop offset="1" stop-color="#4a36a8"/></linearGradient>
+        <linearGradient id="gC" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a4ad8"/><stop offset=".6" stop-color="#34208a"/><stop offset="1" stop-color="#150f3a"/></linearGradient>
+        <linearGradient id="gD" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3c2a86"/><stop offset="1" stop-color="#120b2c"/></linearGradient>
+        <linearGradient id="gE" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9aa6ff"/><stop offset="1" stop-color="#3a3fb8"/></linearGradient>
+        <linearGradient id="gF" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b3a2e6"/><stop offset="1" stop-color="#4b3a9a"/></linearGradient>
+        <linearGradient id="gR" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3270"/><stop offset="1" stop-color="#110d28"/></linearGradient>
+        <radialGradient id="halo"><stop offset="0" stop-color="#7d5cff" stop-opacity=".42"/><stop offset="1" stop-color="#7d5cff" stop-opacity="0"/></radialGradient>
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="blur6"><feGaussianBlur stdDeviation="7"/></filter>
+        <filter id="blur12"><feGaussianBlur stdDeviation="14"/></filter>
+      </defs>
+
+      <!-- blurred foreground rocks -->
+      <g data-d="26">
+        <polygon points="60,860 100,670 270,620 410,740 440,860" fill="#1d1944" filter="url(#blur6)" opacity=".9"/>
+        <polygon points="850,860 880,600 1010,570 1140,740 1120,860" fill="#34295e" filter="url(#blur12)" opacity=".75"/>
+      </g>
+
+      <ellipse cx="690" cy="470" rx="330" ry="360" fill="url(#halo)"/>
+
+      <!-- dark rocks -->
+      <g data-d="10"><g class="float f4">
+        <polygon points="915,70 975,40 972,102 930,122" fill="#2b2133" stroke="#e08a4e" stroke-opacity=".35"/>
+        <polygon points="1050,50 1085,70 1070,120 1040,100" fill="#262040"/>
+        <polygon points="1002,95 1032,85 1036,126 1010,132" fill="#2a2144"/>
+        <polygon points="880,228 960,220 996,262 942,312 905,286" fill="#2c2850" stroke="#c98a6a" stroke-opacity=".3"/>
+        <polygon points="880,228 960,220 940,262" fill="#4a4478" opacity=".6"/>
+      </g></g>
+
+      <g data-d="18"><g class="float f2">
+        <polygon points="372,642 482,590 572,666 522,724 396,714" fill="url(#gR)" stroke="#8a6aa8" stroke-opacity=".35"/>
+        <polygon points="482,590 572,666 522,640" fill="#4a3f8a" opacity=".7"/>
+        <polygon points="190,594 272,570 252,644 200,628" fill="#1b1840"/>
+        <polygon points="395,500 466,445 470,470 412,513" fill="#6b4a5c" stroke="#ff9a5a" stroke-opacity=".6"/>
+        <polygon points="533,338 562,334 552,360 538,356" fill="#35307a" opacity=".8"/>
+        <polygon points="492,388 512,402 500,418" fill="#7a5a70" opacity=".8"/>
+      </g></g>
+
+      <!-- upper-left crystal -->
+      <g data-d="22"><g class="float f3" filter="url(#glow)">
+        <polygon points="612,148 692,182 636,222 560,238" fill="#8da0ff"/>
+        <polygon points="560,238 636,222 640,392 528,262" fill="url(#gA)"/>
+        <polygon points="636,222 692,182 740,242 735,300 640,392" fill="url(#gC)"/>
+        <polyline points="528,262 560,238 612,148 692,182 740,242 735,300" fill="none" stroke="#cfd6ff" stroke-opacity=".75" stroke-width="1.2"/>
+      </g></g>
+
+      <!-- thin shard -->
+      <g data-d="30"><g class="float">
+        <polygon points="788,102 868,208 835,222" fill="#9ea9de"/>
+        <polygon points="788,102 835,222 822,308" fill="#4a4f9c"/>
+        <polygon points="868,208 835,222 822,308" fill="#6d73c0" opacity=".7"/>
+      </g></g>
+
+      <!-- main crystal -->
+      <g data-d="38"><g class="float f2" filter="url(#glow)">
+        <polygon points="795,255 520,478 735,590" fill="url(#gA)"/>
+        <polygon points="795,255 735,590 808,572" fill="url(#gB)"/>
+        <polygon points="520,478 735,590 690,742" fill="url(#gC)"/>
+        <polygon points="735,590 808,572 690,742" fill="url(#gD)"/>
+        <polygon points="795,255 650,395 735,590" fill="#fff" opacity=".12"/>
+        <polygon points="560,500 735,590 640,610" fill="#ff9a5a" opacity=".28"/>
+        <polyline points="795,255 520,478 735,590 808,572 795,255" fill="none" stroke="#e6e0ff" stroke-opacity=".85" stroke-width="1.4"/>
+        <polyline points="520,478 735,590" fill="none" stroke="#ffb27a" stroke-width="2.6" class="glint"/>
+        <polyline points="735,590 690,742 808,572" fill="none" stroke="#b28cff" stroke-opacity=".7" stroke-width="1.2"/>
+      </g></g>
+
+      <!-- small glowing crystal -->
+      <g data-d="46"><g class="float f3" filter="url(#glow)">
+        <polygon points="815,412 840,376 868,370 880,380 850,416" fill="#c4b6ff"/>
+        <polygon points="840,376 868,370 850,392" fill="#fff" opacity=".85"/>
+      </g></g>
+
+      <!-- right crystal + lower shard -->
+      <g data-d="30"><g class="float f4">
+        <polygon points="1048,438 1098,396 1225,496 1135,540" fill="url(#gF)"/>
+        <polygon points="1048,438 1135,540 1076,506" fill="#2d2460"/>
+        <polyline points="1048,438 1098,396 1225,496" fill="none" stroke="#e8e4ff" stroke-opacity=".8" stroke-width="1.2"/>
+        <polygon points="872,505 896,528 832,640 806,636" fill="url(#gE)" opacity=".85"/>
+        <polygon points="732,660 764,672 800,790 770,780" fill="url(#gE)" opacity=".55"/>
+      </g></g>
+    </svg>
+    <canvas id="dust"></canvas>
+  </div>
+  <div class="vignette"></div>
+
+  <div class="copy intro">
+    <h1>Shaping<br>Digital Realities</h1>
+    <p>We craft immersive digital experiences<br>that inspire, engage, and transform brands.</p>
+    <a class="cta" href="#work">Explore our work
+      <svg viewBox="0 0 30 7" fill="none" stroke="#fff"><path d="M0 3.5h29M25 .5l4 3-4 3"/></svg>
+    </a>
+  </div>
+
+  <div class="foot">
+    <button id="snd" aria-label="Sound">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path d="M3 9v6h4l5 4V5L7 9z"/></svg>
+    </button>
+    <hr><hr>
+    <span>Innovation · Creativity · Impact</span>
+    <hr>
+  </div>
+</section>
+
+<!-- ОСТАЛЬНЫЕ СЕКЦИИ ИЗ 1-ГО КОДА -->
+<section class="sec" id="work">
+  <div class="u tag">02 — Work</div>
+  <h2>Selected work</h2>
+  <div class="grid">
+    <a class="card" href="#"><div class="vis" style="--a:#6f9bff;--b:#5a2fd8"></div><span class="badge">Concept</span><h3>Aurora Studio</h3><p>Portfolio Website</p></a>
+    <a class="card" href="#"><div class="vis" style="--a:#ff9a62;--b:#7a3fd8"></div><span class="badge">Concept</span><h3>Lumen Café</h3><p>Landing Page</p></a>
+    <a class="card" href="#"><div class="vis" style="--a:#7be0ff;--b:#3d3f9a"></div><span class="badge">Concept</span><h3>Vertex Consulting</h3><p>Basic Business Website</p></a>
+  </div>
+  <p class="add">Concept projects shown while we build our first client portfolio.</p>
+</section>
+
+<section class="sec" id="about">
+  <div class="u tag">03 — About</div>
+  <h2>About NEXORA</h2>
+  <div class="about">
+    <p class="big">NEXORA is a web studio for people, entrepreneurs and small brands who want a site that looks professional, feels modern and is remembered.</p>
+    <div>
+      <p>We don’t make ordinary websites. Every project gets a unique design, smooth motion and a layout that works equally well on desktop and phone.</p><br>
+      <p>Our goal is to grow into an international studio and work with clients from many countries — one carefully made site at a time.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="services">
+  <div class="u tag">04 — Services &amp; Pricing</div>
+  <h2>What we build</h2>
+  <div class="grid">
+    <div class="card"><h3>Landing Page</h3><p>A focused one-page site built around a single goal.</p><div class="pr">$29<small>13 038 ₸</small></div><button class="pill" data-plan="Landing Page — $29">Choose</button></div>
+    <div class="card"><h3>Portfolio Website</h3><p>A showcase for your work, projects and personal brand.</p><div class="pr">$39<small>17 534 ₸</small></div><button class="pill" data-plan="Portfolio Website — $39">Choose</button></div>
+    <div class="card"><h3>Basic Business Website</h3><p>A multi-page site for a small business or brand.</p><div class="pr">$49<small>22 030 ₸</small></div><button class="pill" data-plan="Basic Business Website — $49">Choose</button></div>
+  </div>
+  <p class="add">Add-ons: extra pages · extra languages · forms · site maintenance · rush delivery.</p>
+</section>
+
+<section class="sec" id="globe">
+  <div class="u tag">05 — Global Presence</div>
+  <h2>Clients around the world</h2>
+  <div class="globe">
+    <canvas id="gcv"></canvas>
+    <div>
+      <p style="font:400 28px/1.4 var(--serif)">The countries of our real clients appear on this globe.</p>
+      <p style="color:var(--mute);margin-top:16px" id="cl">Our first clients are on the way — the map will grow with every new project.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="start">
+  <div class="u tag">06 — Start a Project</div>
+  <h2>Tell us about your site</h2>
+  <form id="f">
+    <select name="plan" id="sel">
+      <option>Landing Page — $29</option>
+      <option>Portfolio Website — $39</option>
+      <option>Basic Business Website — $49</option>
+      <option>Not sure yet</option>
+    </select>
+    <input name="name" placeholder="Your name" required>
+    <input name="contact" placeholder="Telegram @username or email" required>
+    <textarea name="msg" rows="4" placeholder="Describe your project"></textarea>
+    <button class="pill" style="padding:15px 34px">Send via Telegram</button>
+    <a id="ok" target="_blank" rel="noopener" hidden></a>
+  </form>
+</section>
+
+<footer>© 2026 NEXORA — Shaping Digital Realities</footer>
+
+<script>
+const TG = "YOUR_TELEGRAM_USERNAME"; // впиши свой Telegram username (без @)
+const CLIENTS = []; // например: {name:"Kazakhstan",lat:48,lon:68}
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const RM = matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+// 1. Многослойный параллакс кристаллов (из 2-го кода)
+(() => {
+  if (RM) return;
+  const groups = $$('[data-d]');
+  let tx = 0, ty = 0, cx = 0, cy = 0;
+  addEventListener('pointermove', e => {
+    tx = e.clientX / innerWidth - .5;
+    ty = e.clientY / innerHeight - .5;
+  });
+  (function loop() {
+    cx += (tx - cx) * .06;
+    cy += (ty - cy) * .06;
+    groups.forEach(g => {
+      const d = +g.getAttribute('data-d');
+      g.style.transform = `translate(${-cx * d}px, ${-cy * d}px)`;
+    });
+    requestAnimationFrame(loop);
+  })();
+})();
+
+// 2. Пыльца и частицы (из 2-го кода)
+(() => {
+  const c = $("#dust"), x = c.getContext("2d");
+  let W, H, P = [];
+  const cols = ['255,170,100', '255,150,80', '160,175,255', '255,255,255', '190,150,255'];
+  function size() {
+    const r = devicePixelRatio || 1;
+    W = c.clientWidth; H = c.clientHeight;
+    c.width = W * r; c.height = H * r;
+    x.setTransform(r, 0, 0, r, 0, 0);
+  }
+  function make() {
+    const n = W < 820 ? 70 : 150;
+    P = [];
+    for (let i = 0; i < n; i++) {
+      const side = Math.random() < .72;
+      P.push({
+        x: (side ? .55 + Math.random() * .45 : Math.random()) * W,
+        y: Math.random() * H,
+        r: Math.random() * 1.5 + .3,
+        vx: (Math.random() - .5) * .12,
+        vy: -Math.random() * .16 - .02,
+        a: Math.random() * Math.PI * 2,
+        s: Math.random() * .02 + .005,
+        c: cols[Math.floor(Math.random() * cols.length)]
+      });
+    }
+  }
+  function draw() {
+    x.clearRect(0, 0, W, H);
+    P.forEach(p => {
+      if (!RM) {
+        p.x += p.vx; p.y += p.vy; p.a += p.s;
+        if (p.y < -5) p.y = H + 5;
+        if (p.x < -5) p.x = W + 5;
+        if (p.x > W + 5) p.x = -5;
+      }
+      const o = .25 + .55 * Math.abs(Math.sin(p.a));
+      x.beginPath();
+      x.fillStyle = `rgba(${p.c},${o.toFixed(2)})`;
+      x.arc(p.x, p.y, p.r, 0, 6.283);
+      x.fill();
+    });
+    if (!RM) requestAnimationFrame(draw);
+  }
+  size(); make(); draw();
+  addEventListener("resize", () => { size(); make(); if (RM) draw(); });
+})();
+
+// 3. Глобус клиентов (из 1-го кода)
+(() => {
+  const c = $("#gcv"), x = c.getContext("2d"), N = 1100, pts = [];
+  let rot = 0, S, t = 0;
+  for (let i = 0; i < N; i++) {
+    const y = 1 - 2 * (i + .5) / N, r = Math.sqrt(1 - y * y), a = i * 2.39996;
+    pts.push([Math.cos(a) * r, y, Math.sin(a) * r]);
+  }
+  function rs() {
+    const d = devicePixelRatio || 1;
+    S = c.clientWidth; c.width = c.height = S * d;
+    x.setTransform(d, 0, 0, d, 0, 0);
+  }
+  const pr = (v, r) => {
+    const k = Math.cos(r), s = Math.sin(r);
+    return [v[0] * k + v[2] * s, v[1], -v[0] * s + v[2] * k];
+  };
+  function f() {
+    x.clearRect(0, 0, S, S);
+    const R = S * .4, m = S / 2;
+    t += .05;
+    const g = x.createRadialGradient(m, m, R * .6, m, m, R * 1.3);
+    g.addColorStop(0, "rgba(90,70,255,.2)");
+    g.addColorStop(1, "rgba(0,0,0,0)");
+    x.fillStyle = g; x.fillRect(0, 0, S, S);
+    x.strokeStyle = "rgba(170,180,255,.25)";
+    x.beginPath(); x.arc(m, m, R, 0, 7); x.stroke();
+    for (const p of pts) {
+      const q = pr(p, rot);
+      if (q[2] < -.05) continue;
+      x.fillStyle = `rgba(150,170,255,${.12 + .6 * q[2]})`;
+      x.fillRect(m + q[0] * R, m - q[1] * R, 1.5, 1.5);
+    }
+    CLIENTS.forEach(k => {
+      const a = k.lat * Math.PI / 180, o = k.lon * Math.PI / 180;
+      const q = pr([Math.cos(a) * Math.sin(o), Math.sin(a), Math.cos(a) * Math.cos(o)], rot);
+      if (q[2] < 0) return;
+      x.fillStyle = "#ffb27a";
+      x.beginPath(); x.arc(m + q[0] * R, m - q[1] * R, 3 + 1.5 * Math.sin(t), 0, 7); x.fill();
+    });
+    if (!RM) rot += .004;
+    requestAnimationFrame(f);
+  }
+  rs(); addEventListener("resize", rs); f();
+  if (CLIENTS.length) $("#cl").textContent = CLIENTS.map(k => k.name).join(" · ");
+})();
+
+// 4. Скролл-индикатор, появление секций, форма Telegram и эмбиент-звук (из 1-го кода)
+const secs = $$("section"), nav = $("#nav");
+function sc() {
+  let n = 0;
+  secs.forEach((s, i) => { if (s.getBoundingClientRect().top < innerHeight * .5) n = i; });
+  $("#cn").innerHTML = `0${n + 1}<br>0${secs.length}`;
+  nav.classList.toggle("bg", scrollY > 40);
+}
+addEventListener("scroll", sc, { passive: true }); sc();
+
+const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add("in")), { threshold: .08 });
+$$(".sec").forEach(s => io.observe(s));
+
+$$("#menu a").forEach(a => a.onclick = () => document.body.classList.remove("m"));
+$$("[data-plan]").forEach(b => b.onclick = () => { $("#sel").value = b.dataset.plan; location.hash = "start"; });
+
+$("#f").onsubmit = e => {
+  e.preventDefault();
+  const d = new FormData(e.target);
+  const t = `New project request — NEXORA\nPlan: ${d.get("plan")}\nName: ${d.get("name")}\nContact: ${d.get("contact")}\n${d.get("msg")}`;
+  const a = $("#ok");
+  a.href = `https://t.me/${TG}?text=${encodeURIComponent(t)}`;
+  a.textContent = "Open Telegram to send your request →";
+  a.hidden = false;
+  a.click();
+};
+
+let ac, on = 0;
+$("#snd").onclick = () => {
+  try {
+    if (!ac) {
+      ac = new AudioContext();
+      const g = ac.createGain();
+      g.gain.value = .04;
+      g.connect(ac.destination);
+      [55, 82.5, 110.5].forEach(f => {
+        const o = ac.createOscillator();
+        o.frequency.value = f;
+        o.connect(g);
+        o.start();
+      });
+    }
+    on = !on;
+    on ? ac.resume() : ac.suspend();
+    $("#snd").classList.toggle("on", on);
+  } catch (e) {}
+};
+</script>
+</body>
+</html>
