@@ -355,7 +355,13 @@ footer{padding:40px 8vw;color:var(--mute);font-size:12px;border-top:1px solid rg
 
 <script>
 const TG = "nex_ora5"; // впиши свой Telegram username (без @)
-const CLIENTS = []; // например: {name:"Kazakhstan",lat:48,lon:68}
+const CLIENTS = [
+  { name: "Kazakhstan", lat: 48.0, lon: 68.0 },
+  { name: "South Korea", lat: 35.9, lon: 127.7 },
+  { name: "Japan", lat: 36.2, lon: 138.2 },
+  { name: "Germany", lat: 51.1, lon: 10.4 },
+  { name: "United States", lat: 37.0, lon: -95.7 }
+                ]; // например: {name:"Kazakhstan",lat:48,lon:68}
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const RM = matchMedia("(prefers-reduced-motion:reduce)").matches;
 
