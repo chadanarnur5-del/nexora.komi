@@ -41,7 +41,7 @@ header.bg{background:rgba(4,3,10,.78);backdrop-filter:blur(14px)}
 .pill:hover{background:rgba(255,255,255,.1);border-color:#fff}
 #bt{display:none;background:none;border:0;color:inherit;font:inherit;cursor:pointer}
 
-/* Hero Section (Дизайн из 2-го кода) */
+/* Hero Section */
 .hero{
   position:relative;
   min-height:100svh;
@@ -64,7 +64,7 @@ header.bg{background:rgba(4,3,10,.78);backdrop-filter:blur(14px)}
   background:radial-gradient(120% 100% at 60% 50%,transparent 55%,rgba(2,1,8,.75));
 }
 
-/* Анимации кристаллов */
+/* Crystal Animations */
 .float{animation:fl 9s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
 .f2{animation-duration:12s;animation-delay:-3s}
 .f3{animation-duration:7s;animation-delay:-5s}
@@ -99,7 +99,7 @@ h1{font-size:clamp(2.6rem,4.45vw,4.6rem);letter-spacing:-.005em}
 #snd{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.55);background:none;color:#fff;display:grid;place-items:center;cursor:pointer;transition:.3s}
 #snd.on{box-shadow:0 0 16px #7a6bff;background:rgba(255,255,255,.12)}
 
-/* Остальные секции из 1-го кода */
+/* Page Sections */
 .sec{padding:130px 8vw;position:relative;opacity:0;transform:translateY(28px);transition:1s}
 .sec.in{opacity:1;transform:none}
 .sec h2{font-size:clamp(34px,4vw,60px);margin:14px 0 48px}
@@ -176,7 +176,7 @@ footer{padding:40px 8vw;color:var(--mute);font-size:12px;border-top:1px solid rg
   <em id="cn" style="font-style:normal">01<br>06</em>
 </div>
 
-<!-- HERO SECTION (Визуал и кристаллы из 2-го кода) -->
+<!-- HERO SECTION -->
 <section id="home" class="hero">
   <div class="beam"></div>
   <div class="stage">
@@ -286,7 +286,7 @@ footer{padding:40px 8vw;color:var(--mute);font-size:12px;border-top:1px solid rg
   </div>
 </section>
 
-<!-- ОСТАЛЬНЫЕ СЕКЦИИ ИЗ 1-ГО КОДА -->
+<!-- WORK SECTION -->
 <section class="sec" id="work">
   <div class="u tag">02 — Work</div>
   <h2>Selected work</h2>
@@ -298,6 +298,7 @@ footer{padding:40px 8vw;color:var(--mute);font-size:12px;border-top:1px solid rg
   <p class="add">Concept projects shown while we build our first client portfolio.</p>
 </section>
 
+<!-- ABOUT SECTION -->
 <section class="sec" id="about">
   <div class="u tag">03 — About</div>
   <h2>About NEXORA</h2>
@@ -310,6 +311,7 @@ footer{padding:40px 8vw;color:var(--mute);font-size:12px;border-top:1px solid rg
   </div>
 </section>
 
+<!-- SERVICES SECTION -->
 <section class="sec" id="services">
   <div class="u tag">04 — Services &amp; Pricing</div>
   <h2>What we build</h2>
@@ -321,6 +323,7 @@ footer{padding:40px 8vw;color:var(--mute);font-size:12px;border-top:1px solid rg
   <p class="add">Add-ons: extra pages · extra languages · forms · site maintenance · rush delivery.</p>
 </section>
 
+<!-- GLOBAL SECTION -->
 <section class="sec" id="globe">
   <div class="u tag">05 — Global Presence</div>
   <h2>Clients around the world</h2>
@@ -333,6 +336,7 @@ footer{padding:40px 8vw;color:var(--mute);font-size:12px;border-top:1px solid rg
   </div>
 </section>
 
+<!-- START PROJECT SECTION -->
 <section class="sec" id="start">
   <div class="u tag">06 — Start a Project</div>
   <h2>Tell us about your site</h2>
@@ -353,19 +357,17 @@ footer{padding:40px 8vw;color:var(--mute);font-size:12px;border-top:1px solid rg
 
 <footer>© 2026 NEXORA — Shaping Digital Realities</footer>
 
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 <script>
-const TG = "nex_ora5"; // впиши свой Telegram username (без @)
+const TG = "YOUR_TELEGRAM_USERNAME"; // впиши свой Telegram username (без @)
 const CLIENTS = [
-  { name: "Kazakhstan", lat: 48.0, lon: 68.0 },
-  { name: "South Korea", lat: 35.9, lon: 127.7 },
-  { name: "Japan", lat: 36.2, lon: 138.2 },
-  { name: "Germany", lat: 51.1, lon: 10.4 },
-  { name: "United States", lat: 37.0, lon: -95.7 }
-                ]; // например: {name:"Kazakhstan",lat:48,lon:68}
+  // Вписывай страны на английском, например: "Kazakhstan", "South Korea", "United States of America"
+];
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const RM = matchMedia("(prefers-reduced-motion:reduce)").matches;
 
-// 1. Многослойный параллакс кристаллов (из 2-го кода)
+// 1. Многослойный параллакс кристаллов
 (() => {
   if (RM) return;
   const groups = $$('[data-d]');
@@ -385,7 +387,7 @@ const RM = matchMedia("(prefers-reduced-motion:reduce)").matches;
   })();
 })();
 
-// 2. Пыльца и частицы (из 2-го кода)
+// 2. Пыльца и частицы
 (() => {
   const c = $("#dust"), x = c.getContext("2d");
   let W, H, P = [];
@@ -434,54 +436,96 @@ const RM = matchMedia("(prefers-reduced-motion:reduce)").matches;
   addEventListener("resize", () => { size(); make(); if (RM) draw(); });
 })();
 
-// 3. Глобус клиентов (из 1-го кода)
+// 3. Глобус с реальными территориями стран
 (() => {
-  const c = $("#gcv"), x = c.getContext("2d"), N = 1100, pts = [];
-  let rot = 0, S, t = 0;
-  for (let i = 0; i < N; i++) {
-    const y = 1 - 2 * (i + .5) / N, r = Math.sqrt(1 - y * y), a = i * 2.39996;
-    pts.push([Math.cos(a) * r, y, Math.sin(a) * r]);
-  }
+  const c = $("#gcv"), x = c.getContext("2d");
+  let S, rot = 0, land = null, countries = [];
+
   function rs() {
     const d = devicePixelRatio || 1;
-    S = c.clientWidth; c.width = c.height = S * d;
+    S = c.clientWidth;
+    c.width = c.height = S * d;
     x.setTransform(d, 0, 0, d, 0, 0);
   }
-  const pr = (v, r) => {
-    const k = Math.cos(r), s = Math.sin(r);
-    return [v[0] * k + v[2] * s, v[1], -v[0] * s + v[2] * k];
-  };
+  rs();
+  addEventListener("resize", rs);
+
+  fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
+    .then(r => r.json())
+    .then(world => {
+      land = topojson.feature(world, world.objects.land);
+      countries = topojson.feature(world, world.objects.countries).features;
+    });
+
+  const activeNames = () => CLIENTS.map(k => (typeof k === "string" ? k : k.name).toLowerCase());
+
   function f() {
     x.clearRect(0, 0, S, S);
-    const R = S * .4, m = S / 2;
-    t += .05;
-    const g = x.createRadialGradient(m, m, R * .6, m, m, R * 1.3);
-    g.addColorStop(0, "rgba(90,70,255,.2)");
+    const R = S * 0.4, m = S / 2;
+
+    const g = x.createRadialGradient(m, m, R * 0.6, m, m, R * 1.3);
+    g.addColorStop(0, "rgba(90,70,255,.22)");
     g.addColorStop(1, "rgba(0,0,0,0)");
-    x.fillStyle = g; x.fillRect(0, 0, S, S);
+    x.fillStyle = g;
+    x.fillRect(0, 0, S, S);
+
     x.strokeStyle = "rgba(170,180,255,.25)";
-    x.beginPath(); x.arc(m, m, R, 0, 7); x.stroke();
-    for (const p of pts) {
-      const q = pr(p, rot);
-      if (q[2] < -.05) continue;
-      x.fillStyle = `rgba(150,170,255,${.12 + .6 * q[2]})`;
-      x.fillRect(m + q[0] * R, m - q[1] * R, 1.5, 1.5);
+    x.lineWidth = 1;
+    x.beginPath();
+    x.arc(m, m, R, 0, Math.PI * 2);
+    x.stroke();
+
+    if (land && typeof d3 !== "undefined") {
+      const proj = d3.geoOrthographic()
+        .scale(R)
+        .translate([m, m])
+        .rotate([rot, -15])
+        .clipAngle(90);
+
+      const path = d3.geoPath(proj, x);
+
+      x.beginPath();
+      path(land);
+      x.fillStyle = "rgba(130, 145, 255, 0.14)";
+      x.fill();
+      x.strokeStyle = "rgba(160, 175, 255, 0.35)";
+      x.lineWidth = 0.7;
+      x.stroke();
+
+      x.beginPath();
+      countries.forEach(feat => path(feat));
+      x.strokeStyle = "rgba(160, 175, 255, 0.16)";
+      x.lineWidth = 0.5;
+      x.stroke();
+
+      const active = activeNames();
+      if (active.length) {
+        countries.forEach(feat => {
+          const cname = (feat.properties.name || "").toLowerCase();
+          if (active.includes(cname)) {
+            x.beginPath();
+            path(feat);
+            x.fillStyle = "rgba(255, 165, 110, 0.75)";
+            x.fill();
+            x.strokeStyle = "#ffd1b3";
+            x.lineWidth = 1.2;
+            x.stroke();
+          }
+        });
+      }
     }
-    CLIENTS.forEach(k => {
-      const a = k.lat * Math.PI / 180, o = k.lon * Math.PI / 180;
-      const q = pr([Math.cos(a) * Math.sin(o), Math.sin(a), Math.cos(a) * Math.cos(o)], rot);
-      if (q[2] < 0) return;
-      x.fillStyle = "#ffb27a";
-      x.beginPath(); x.arc(m + q[0] * R, m - q[1] * R, 3 + 1.5 * Math.sin(t), 0, 7); x.fill();
-    });
-    if (!RM) rot += .004;
+
+    if (!RM) rot += 0.25;
     requestAnimationFrame(f);
   }
-  rs(); addEventListener("resize", rs); f();
-  if (CLIENTS.length) $("#cl").textContent = CLIENTS.map(k => k.name).join(" · ");
+  f();
+
+  if (CLIENTS.length) {
+    $("#cl").textContent = CLIENTS.map(k => (typeof k === "string" ? k : k.name)).join(" · ");
+  }
 })();
 
-// 4. Скролл-индикатор, появление секций, форма Telegram и эмбиент-звук (из 1-го кода)
+// 4. Скролл-индикатор, появление секций, форма Telegram и эмбиент-звук
 const secs = $$("section"), nav = $("#nav");
 function sc() {
   let n = 0;
